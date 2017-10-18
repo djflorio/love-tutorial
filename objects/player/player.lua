@@ -2,29 +2,30 @@ Player = Object:extend()
 
 function Player:new()
   self.player_walk = love.graphics.newImage("objects/player/player_walk.png")
-  self.width = self.player_walk:getWidth()
-  self.height = self.player_walk:getHeight()
-  self.frames = {}
-  self.frame_width = 24
-  self.frame_height = 46
-  for i=0,4 do
-    table.insert(self.frames, love.graphics.newQuad(
-      1 + i * (self.frame_width + 2), 1,
-      self.frame_width, self.frame_height,
-      self.width, self.height))
-  end
-  self.currentFrame = 1
+  self.player_idle = love.graphics.newImage("objects/player/player_idle.png")
+
+  self.anim_walk = Animation(self.player_walk, 24, 46, 5)
+  self.anim_idle = Animation(self.player_idle, 26, 45, 2)
+
+  self.pos_x = 100
+  self.pos_y = 100
+  self.speed = 100
+  self.direction = 1
+  self.scale = 2
+  self.currentAnim = "walk"
 end
 
 function Player:update(dt)
-  self.currentFrame = self.currentFrame + 6 * dt
-  if self.currentFrame >= 5 then
-    self.currentFrame = 1
+  self.anim_walk:update(dt)
+  if love.keyboard.isDown("right") then
+    self.direction = 1
+    self.pos_x = self.pos_x + self.speed * dt
+  elseif love.keyboard.isDown("left") then
+    self.direction = -1
+    self.pos_x = self.pos_x - self.speed * dt
   end
 end
 
 function Player:draw()
-  love.graphics.draw(
-    self.player_walk,
-    self.frames[math.floor(self.currentFrame)], 100, 100)
+  self.anim_walk:draw(self.pos_x, self.pos_y, self.direction, self.scale)
 end

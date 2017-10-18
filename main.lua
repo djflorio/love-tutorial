@@ -1,5 +1,6 @@
 function love.load()
   Object = require "assets.vendor/classic"
+  require "objects.animation"
   require "objects.player.player"
 
   player = Player()
