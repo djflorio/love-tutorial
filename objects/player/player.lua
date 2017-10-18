@@ -16,16 +16,26 @@ function Player:new()
 end
 
 function Player:update(dt)
-  self.anim_walk:update(dt)
   if love.keyboard.isDown("right") then
+    self.currentAnim = "walk"
+    self.anim_walk:update(dt)
     self.direction = 1
     self.pos_x = self.pos_x + self.speed * dt
   elseif love.keyboard.isDown("left") then
+    self.currentAnim = "walk"
+    self.anim_walk:update(dt)
     self.direction = -1
     self.pos_x = self.pos_x - self.speed * dt
+  else
+    self.currentAnim = "idle"
+    self.anim_idle:update(dt)
   end
 end
 
 function Player:draw()
-  self.anim_walk:draw(self.pos_x, self.pos_y, self.direction, self.scale)
+  if self.currentAnim == "walk" then
+    self.anim_walk:draw(self.pos_x, self.pos_y, self.direction, self.scale)
+  elseif self.currentAnim == "idle" then
+    self.anim_idle:draw(self.pos_x, self.pos_y, self.direction, self.scale)
+  end
 end

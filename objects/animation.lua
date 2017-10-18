@@ -22,8 +22,9 @@ function Animation:new(spritesheet, fWidth, fHeight, numFrames)
 end
 
 function Animation:update(dt)
+  print(self.currentFrame)
   self.currentFrame = self.currentFrame + 6 * dt
-  if self.currentFrame >= self.numFrames then
+  if self.currentFrame >= self.numFrames + 1 then
     self.currentFrame = 1
   end
 end
