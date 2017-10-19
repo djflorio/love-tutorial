@@ -4,8 +4,8 @@ function Player:new()
   self.player_walk = love.graphics.newImage("objects/player/player_walk.png")
   self.player_idle = love.graphics.newImage("objects/player/player_idle.png")
 
-  self.anim_walk = Animation(self.player_walk, 24, 46, 5)
-  self.anim_idle = Animation(self.player_idle, 26, 45, 2)
+  self.anim_walk = Animation(self.player_walk, 24, 46, 5, 6)
+  self.anim_idle = Animation(self.player_idle, 26, 45, 2, 1)
 
   self.pos_x = 100
   self.pos_y = 100

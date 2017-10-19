@@ -12,18 +12,18 @@ local generateFrames = function(spritesheet, fWidth, fHeight, numFrames)
   return frames
 end
 
-function Animation:new(spritesheet, fWidth, fHeight, numFrames)
+function Animation:new(spritesheet, fWidth, fHeight, numFrames, speed)
   self.spritesheet = spritesheet
   self.frames = generateFrames(spritesheet, fWidth, fHeight, numFrames)
   self.cx = fWidth / 2
   self.cy = fHeight / 2
   self.numFrames = numFrames
   self.currentFrame = 1
+  self.speed = speed
 end
 
 function Animation:update(dt)
-  print(self.currentFrame)
-  self.currentFrame = self.currentFrame + 6 * dt
+  self.currentFrame = self.currentFrame + self.speed * dt
   if self.currentFrame >= self.numFrames + 1 then
     self.currentFrame = 1
   end
